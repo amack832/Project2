@@ -26,6 +26,7 @@ Samples = Base.classes.samples
 @app.route("/")
 def index():
 
-    return redner_template("index.html")
+    return render_template("index.html")
 
 @app.route("")
+

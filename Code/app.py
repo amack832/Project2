@@ -1,3 +1,4 @@
+#Dependencies
 import os
 
 import pandas as pd
@@ -13,20 +14,88 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = ""
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/database.sqlite"
 db = SQLAlchemy(app)
 
-
+#Database Model
 Base = automap_base()
 Base.prepare(db.engine, reflect=True)
+Base.classes.keys()
 
-Samples_Metadata = Base.classes.sample_metadata
-Samples = Base.classes.samples
+#Reference for each data tables in sqlite
+PitchforkData = Base.classes.cleanup_list
 
+#Home page
 @app.route("/")
 def index():
 
     return render_template("index.html")
 
-@app.route("")
+#Pitch Data
+@app.route("/pitchdata")
+def pitchdata():
+    #Defining our selection for the query
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+    
+    results1 = db.session.query(*sel).all()
 
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "reviewid": result[0],
+            "artist": result[1],
+            "genre": result[2],
+            "album_title": result[3],
+            "score": result[4],
+            "pub_year": result[5],
+            "year": result[6],
+            "url": result[7]
+        })
+    print(pitch_data1)
+    return jsonify(pitch_data1)
+
+
+@app.route("/pitchfork/<reviewid>")
+def pitchfork_data(reviewid):
+
+    #Defining our selection for the query
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+    
+    #Run the query and store it in results
+    results = db.session.query(*sel).filter(PitchforkData.reviewid == reviewid).all()
+
+    #dictionary for the query data
+    pitch_data = {}
+    for result in results:
+        pitch_data["reviewid"] = result[0]
+        pitch_data["artist"] = result[1]
+        pitch_data["genre"] = result[2]
+        pitch_data["album_title"] = result[3]
+        pitch_data["score"] = result[4]
+        pitch_data["pub_year"] = result[5]
+        pitch_data["year"] = result[6]
+        pitch_data["url"] = result[7]
+    
+    print(pitch_data)
+    return jsonify(pitch_data)
+
+if __name__ == "__main__":
+    app.run()

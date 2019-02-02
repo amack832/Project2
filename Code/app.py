@@ -24,6 +24,7 @@ Base.classes.keys()
 
 #Reference for each data tables in sqlite
 PitchforkData = Base.classes.cleanup_list
+totals_pitchfork = Base.classes.cleanup_list_totals
 
 #Home page
 @app.route("/")
@@ -60,9 +61,31 @@ def pitchdata():
             "year": result[6],
             "url": result[7]
         })
-    print(pitch_data1)
+    print(results1)
     return jsonify(pitch_data1)
 
+@app.route("/pitchtotals")
+def pitchtotals():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year
+    ]
+
+    results2 = db.session.query(*sel).all()
+
+    pitch_total_data = []
+    for result in results2:
+        pitch_total_data.append({
+            "id": result[0],
+            "genre count": result[1],
+            "genre": result[2],
+            "avg score": result[3],
+            "year": result[4]
+        })
+    return jsonify(pitch_total_data)
 
 @app.route("/pitchfork/<reviewid>")
 def pitchfork_data(reviewid):
@@ -94,8 +117,202 @@ def pitchfork_data(reviewid):
         pitch_data["year"] = result[6]
         pitch_data["url"] = result[7]
     
-    print(pitch_data)
+    # print(pitch_data)
     return jsonify(pitch_data)
+
+@app.route("/rock")
+def rock():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "rock").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/global")
+def global1():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "global").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/rap")
+def rap():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "rap").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/pop/r&b")
+def pop_rb():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "pop/r&b").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/metal")
+def metal():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "metal").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/jazz")
+def jazz():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "jazz").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/folk/country")
+def folk_country():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "folk/country").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+@app.route("/electronic")
+def electronic():
+    sel = [
+        totals_pitchfork.id,
+        totals_pitchfork.genre_count,
+        totals_pitchfork.genre,
+        totals_pitchfork.avg_score,
+        totals_pitchfork.year,
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.genre == "global").all()
+
+    pitch_data1 = []
+    for result in results1:
+        pitch_data1.append({
+            "id": result[0],
+            "genre_count": result[1],
+            "genre": result[2],
+            "avg_score": result[3],
+            "year": result[4]
+        })
+    # print(pitch_data1)
+    return jsonify(pitch_data1)
+
+
 
 if __name__ == "__main__":
     app.run()

@@ -1,15 +1,14 @@
-var URL = "";
-d3.json(URL).then(function(data) {
+var defaultURL = "/electronic";
+d3.json(defaultURL).then(function(data) {
   var trace1 = {
-        type: "scatter",
-        mode: "lines",
-        x: totals_pitchfork.year,
-        y: totals_pitchfork.avg_score
-   }
+    type: "scatter",
+    mode: "lines",
+    x: data.year,
+    y: data.avg_score
+  };
   
   var data = [trace1];
-  var layout = { margin: { t: 30, b: 100 } };
-  Plotly.plot("line", data, layout);
+  Plotly.plot('line', data);
 });
 
 // Update the plot with new data

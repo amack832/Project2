@@ -130,7 +130,7 @@ def rock():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "rock").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "rock").all()
 
     pitch_data1 = []
     for result in results1:
@@ -154,7 +154,7 @@ def global1():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "global").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "global").all()
 
     pitch_data1 = []
     for result in results1:
@@ -178,7 +178,7 @@ def rap():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "rap").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "rap").all()
 
     pitch_data1 = []
     for result in results1:
@@ -202,7 +202,7 @@ def pop_rb():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "pop/r&b").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "pop/r&b").all()
 
     pitch_data1 = []
     for result in results1:
@@ -226,7 +226,7 @@ def metal():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "metal").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "metal").all()
 
     pitch_data1 = []
     for result in results1:
@@ -250,7 +250,7 @@ def jazz():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "jazz").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "jazz").all()
 
     pitch_data1 = []
     for result in results1:
@@ -274,7 +274,7 @@ def folk_country():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "folk/country").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "folk/country").all()
 
     pitch_data1 = []
     for result in results1:
@@ -298,7 +298,7 @@ def electronic():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(PitchforkData.genre == "global").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "global").all()
 
     pitch_data1 = []
     for result in results1:

@@ -298,7 +298,7 @@ def electronic():
         totals_pitchfork.year,
         ]
 
-    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "global").all()
+    results1 = db.session.query(*sel).filter(totals_pitchfork.genre == "electronic").all()
 
     pitch_data1 = []
     for result in results1:

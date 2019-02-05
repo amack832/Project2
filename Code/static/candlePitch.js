@@ -1,32 +1,45 @@
 var defaultURL = "/electronic";
+
 function buildPlot() {
+  var years = []
+  var scores = []
   d3.json(defaultURL).then(function(data) {
-  for (var i=0; i <data.length; i++) {
-    var years = data[i].year;
-    var genre = data[i].genre;
-    var score = data[i].avg_score;
+  for (var i=0; i < data.length; i++) {
+    years.push(data[i].year)
+    scores.push(data[i].avg_score)
   }
+  console.log(years);
   var trace1 = {
     type: "scatter",
     mode: "lines",
     x: years,
-    y: score
+    y: scores
   };
   var data = [trace1];
   Plotly.plot('line', data);
 })};
 buildPlot()
-// Update the plot with new data
+//Update the plot with new data
 function updatePlotly(newdata) {
-  Plotly.restyle(buildPlot, "line", "x", [newdata.x]);
-  Plotly.restyle(buildPlot, "line", "y", [newdata.y]);
+  Plotly.restyle("line", "x", [newdata.x]);
+  Plotly.restyle("line", "y", [newdata.y]);
 }
 
 // Get new data whenever the dropdown selection changes
 function getData(route) {
   console.log(route);
+  var years1 = []
+  var scores1 = []
   d3.json(`/${route}`).then(function(data) {
-    console.log("newdata", data);
-    updatePlotly(data);
+  for (var i=0; i < data.length; i++) {
+    years1.push(data[i].year)
+    scores1.push(data[i].avg_score)
+  }
+  var trace = {
+    x: years1,
+    y: scores1
+  }
+    console.log("trace data", trace);
+    updatePlotly(trace);
   });
 }

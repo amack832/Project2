@@ -38,7 +38,7 @@ function findTop(genreName, selectedYear) {
                 } else if (parseFloat(defaultURL[i]["score"]) == parseFloat(max["score"])) {
                     var rollingAlbum1 = null;
                     var rollingAlbum2 = null;
-                    var tieData = d3.csv("/db/RS-albumlist");
+                    var tieData = d3.csv("/db/RS-albumlist.csv");
 
                     // Check whether albums appear
                     for (var j=0 ; j<tieData.length ; j++) {

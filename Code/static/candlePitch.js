@@ -15,8 +15,20 @@ function buildPlot() {
     x: years,
     y: scores
   };
+
+  var layout = {
+    title: "Average Genre Score per Year",
+    xaxis: {
+      title: "Years"
+    },
+    yaxis: {
+      title: "Average Score"
+    },
+    height: 300,
+    width: 750
+  }
   var data = [trace1];
-  Plotly.plot('line', data);
+  Plotly.plot('line', data, layout);
 })};
 buildPlot()
 //Update the plot with new data

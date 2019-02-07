@@ -32,6 +32,15 @@ def index():
 
     return render_template("index.html")
 
+@app.route('/<string:page_name>/')
+def render_static(page_name):
+    return render_template('%s.html' % page_name)
+
+@app.route("/v1")
+def visual1():
+
+    return render_template("visualization-1-col.html")
+
 #Pitch Data
 @app.route("/pitchdata")
 def pitchdata():

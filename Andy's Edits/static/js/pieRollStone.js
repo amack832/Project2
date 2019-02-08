@@ -154,7 +154,7 @@ function buildPlot() {
             yaxis: {
                 title: "Score"
             },
-            legend = true
+            legend: true
         }
         
         var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8]

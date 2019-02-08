@@ -1,13 +1,18 @@
 // set up the SVG for graph
-var svgHeight = 960;
-var svgWidth = 500;
+var svgHeight = window.innerHeight;
+var svgWidth = window.innerWidth;
 
 var margin = {
-    top: 20,
-    right: 40,
-    bottom: 60,
-    left: 100
+    top: 50,
+    right: 50,
+    bottom: 50,
+    left: 50
 };
+
+var height = svgHeight - margin.top - margin.bottom;
+var width = svgWidth - margin.left - margin.right;
+
+var svgArea = d3.select("body").select("svg");
 
 var svg = d3.select("#svg-area")
     .append("svg")
@@ -24,20 +29,25 @@ genreNames = ["rock", "pop/r&b", "rap", "folk/country", "metal", "jazz", "electr
 var defaultURL = "/pitchdata";
 
 function findTop(genreName, selectedYear) {
-    var max;
+    var max = [];
+
+    d3.json(defaultURL).then(function(data) {
+
     // Loop through pitchfork data 
-    for (var i=0 ; i<defaultURL.length ; i++) {
+    for (var i=0 ; i<data.length ; i++) {
         // Make sure we are only checking the right year
-        if (defaultURL[i][genre] == genreName) {
-            if (parseFloat(defaultURL[i]["year"]) == selectedYear) {
+        if (data[i][genre] == genreName) {
+            if (parseFloat(data[i]["year"]) == selectedYear) {
                 // Check the review score
-                if (!max || parseFloat(defaultURL[i]["score"]) > parseFloat(max["score"])) {
+                if (!max || parseFloat(data[i]["score"]) > parseFloat(max["score"])) {
                     max = arr[i];
 
                 // Tie breaker
-                } else if (parseFloat(defaultURL[i]["score"]) == parseFloat(max["score"])) {
-                    var rollingAlbum1 = null;
-                    var rollingAlbum2 = null;
+                } else if (parseFloat(data[i]["score"]) == parseFloat(max["score"])) {
+                    var rollingAlbum1 = [];
+                    var rollingAlbum2 = [];
+                    var rollingBand1 = [];
+                    var rollingBand2 = [];
                     var tieData = d3.csv("/db/RS-albumlist.csv");
 
                     // Check whether albums appear
@@ -50,31 +60,44 @@ function findTop(genreName, selectedYear) {
                     };
 
                     // If albums don't appear, check if artists show
-                    for (var k=0 ; k<tieData.length ; k++) {
-                        if (rollingAlbum1 == null && rollingAlbum2 == null) {
+                    if (rollingAlbum1 == [] && rollingAlbum2 == []) {
+                        for (var k=0 ; k<tieData.length ; k++) {
                             if (tieData[k]["artist"] == max["artist"]) {
                                 rollingBand1 = tieData[k];
                             } else if (tieData[k]["artist"] == arr[i]["artist"]) {
                                 rollingBand2 = tieData[k];
                             }
-                        } else if (rollingAlbum1 == null && rollingAlbum2 != null) {
-                            break;
-                        } else if (rollingAlbum1 != null && rollingAlbum2 == null) {
-                            max = defaultURL[i];
-                            break;
                         }
+
+                        if (rollingBand1 == [] && rollingBand2 == []) {
+                            // Keep on looping
+                        } else if (rollingBand1 != [] && rollingBand2 == []) {
+                            break;
+                        } else if (rollingBand1 == [] && rollingBand2 != []){
+                            max = data[i];
+                        }
+                        
+                    } else if (rollingAlbum1 != [] && rollingAlbum2 == []) {
+                        break;
+                    } else if (rollingAlbum1 == [] && rollingAlbum2 == []) {
+                        max = data[i];
+                        break;
                     };
 
-                    // If neither the albums nor the artists show up, shrug and move to the next
+                    // If neither the albums nor the artists show up, shrug and move on
                 }
             }
         }
-    }
+    }});
     return max;
 }
 
 // Load up the graph
 function buildCharts(selectedYear) {
+
+    if (!svgArea.empty()) {
+        svgArea.remove();
+    };
 
     // Loop through to determine top score for Rock
     var rockTop = findTop("rock", selectedYear);
@@ -104,25 +127,79 @@ function buildCharts(selectedYear) {
     topAlbumScores = [rockTop[score], popTop[score], rapTop[score], countryTop[score], metalTop[score], jazzTop[score], electroTop[score], globalTop[score]];
 
     // Set the trace, data, and layout for plotting
-    var trace1 = {
-        x: genreNames,
-        y: topAlbumScores,
-        type: "bar"
-    };
+    const xScale = d3.scaleBand()
+        .range([0, width])
+        .domain(genreNames.length)
+        .padding(0.4)
+    ;
 
-    var data = [trace1];
+    const yScale = d3.scaleLinear()
+        .range([height, 0])
+        .domain([5, 10])
+    ;
 
-    var layout = {
-        title: "Top Album Review by Genre",
-        xaxis: "Review Score (10 Point Scale)",
-        yaxis: "Genre Name"
-    };
+    const makeYLines = () => d3.axisLeft().scale(yScale);
 
-    // Plot out the data
-    Plotly.newPlot("plot", data, layout);
+    // Create axes for plot and place horizontal lines
+    chartGroup.append('g')
+        .attr('transform', `translate(0, ${height})`)
+        .call(d3.axisBottom(xScale))
+    ;
 
-    // Create group to add tooltips to later
-    var barGroup = chartGroup.selectAll("bar");
+    chartGroup.append('g')
+        .call(d3.axisLeft(yScale))
+    ;
+
+    chartGroup.append('g')
+        .attr('class', 'grid')
+        .call(makeYLines()
+            .tickSize(-width, 0, 0)
+            .tickFormat('')
+        )
+    ;
+
+    // Populate graph
+    var barGroup = chartGroup.selectAll()
+        .data(topAlbumScores)
+        .enter()
+        .append('g')
+    ;
+
+    barGroup.append('rect')
+        .attr('class', 'bar')
+        .attr('x', xScale(genreNames))
+        .attr('y', d => yScale(d.score))
+        .attr('height', d => height - yScale(d.score))
+        .attr('width', xScale.bandwidth())
+    ;
+
+    // X Label
+    svg.append('text')
+        .attr('class', 'label')
+        .attr('x', -(height / 2) - margin)
+        .attr('y', margin / 2.4)
+        .attr('transform', 'rotate(-90)')
+        .attr('text-anchor', 'middle')
+        .text('Review Score (10 Point Scale)')
+    ;
+
+    // Y Label
+    svg.append('text')
+        .attr('class', 'label')
+        .attr('x', width / 2 + margin)
+        .attr('y', height + margin * 1.7)
+        .attr('text-anchor', 'middle')
+        .text('Genre Names')
+    ;
+
+    // Title
+    svg.append('text')
+        .attr('class', 'title')
+        .attr('x', width / 2 + margin)
+        .attr('y', 40)
+        .attr('text-anchor', 'middle')
+        .text('Top Album Review by Genre')
+    ;
 
     // Add hover and on-click elements to show album charted
     var toolTip = d3.tip()

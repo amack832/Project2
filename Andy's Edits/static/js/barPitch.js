@@ -36,8 +36,7 @@ function buildPlot() {
       title: "Score"
     },
     height: 500,
-    width: 700,
-    orientation: 'h'
+    width: 700
   }
 
   var data = [trace1];

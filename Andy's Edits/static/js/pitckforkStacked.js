@@ -116,7 +116,7 @@ function buildPlot() {
         var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8]
 
         // Plot that bad boy
-        Plotly.plot('bar-stack', data, layout);
+        Plotly.plot('barStack', data, layout);
     })
 }
 buildPlot();

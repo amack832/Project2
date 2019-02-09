@@ -24,12 +24,6 @@
 	<!-- Working through an error-->
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
 </head>
 
@@ -122,9 +116,15 @@
                 <script src="{{ url_for('static', filename='js/linegraph.js') }}"></script>
             </div>
             <div class="col-md-5">
-                <h3>Project One</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+                <h3>View Genres Over Time</h3>
+                <h4>Overview</h4>
+                <p>This graph shows the changes of average score of each genre per year. Those different genres can be accessed by using the drop down arrow on the bottom left of the graph.</p>
+                <p>Folk/country saw a significant drop off of average score after 1999.</p>
+                <p>Pop/R&B saw an increase in it’s average score after it’s lowest average score in 2003.</p>
+                <p>Rap saw a gradual negative regression during this time period.</p>
+                <p>Jazz saw no real significant change in average score.
+                <p>Global dropped to a consistent average score of 7 after dropping to that score in 2000.</p>
+                <p>Electronic’s average score changes periodically over this time period, showing no real positive or negative regression.</p>
             </div>
         </div>
         <!-- /.row -->
@@ -136,7 +136,6 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
 					<my-timer></my-timer>
 
 					<script src="/static/js/my-timer.tag" type="riot/tag"></script>

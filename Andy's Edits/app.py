@@ -25,7 +25,7 @@ Base.classes.keys()
 #Reference for each data tables in sqlite
 PitchforkData = Base.classes.cleanup_list
 totals_pitchfork = Base.classes.cleanup_list_totals
-
+rolling_stones = Base.classes.rolling_stones
 #Trying to resolve an error
 # @app.route('/favicon.ico')
 # def favicon():
@@ -39,12 +39,39 @@ def index():
 
 @app.route('/<page_name>/')
 def render_static(page_name):
+
     return render_template('%s.html' % page_name)
 
 @app.route("/visualization-1-col")
 def visual1():
 
     return render_template("visualization-1-col.html")
+
+#Rolling Stones Data
+@app.route("/rollingdata")
+def rollingdata():
+
+    sel = [
+        rolling_stones.Number,
+        rolling_stones.Year,
+        rolling_stones.Album,
+        rolling_stones.Artist,
+        rolling_stones.Genre
+    ]
+
+    results1 = db.session.query(*sel).all()
+
+    rolling_data = []
+    for result in results1:
+        rolling_data.append({
+            "Number": result[0],
+            "Year": result[1],
+            "Album": result[2],
+            "Artist": result[3],
+            "Genre": result[4]
+        })
+    print(rolling_data)
+    return jsonify(rolling_data)
 
 #Pitch Data
 @app.route("/pitchdata")
@@ -101,8 +128,8 @@ def pitchtotals():
         })
     return jsonify(pitch_total_data)
 
-@app.route("/pitchfork/<reviewid>")
-def pitchfork_data(reviewid):
+@app.route("/pitchfork/<album_title>")
+def pitchfork_data(album_title):
 
     #Defining our selection for the query
     sel = [
@@ -117,7 +144,7 @@ def pitchfork_data(reviewid):
         ]
     
     #Run the query and store it in results
-    results = db.session.query(*sel).filter(PitchforkData.reviewid == reviewid).all()
+    results = db.session.query(*sel).filter(PitchforkData.album_title == album_title).all()
 
     #dictionary for the query data
     pitch_data = {}
@@ -132,6 +159,427 @@ def pitchfork_data(reviewid):
         pitch_data["url"] = result[7]
     
     # print(pitch_data)
+    return jsonify(pitch_data)
+
+@app.route("/1999")
+def ninetynine():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 1999).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2000")
+def zero():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2000).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2001")
+def one():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2001).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+
+@app.route("/2002")
+def two():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2002).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2003")
+def three():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2003).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2004")
+def four():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2004).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2005")
+def five():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2005).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2006")
+def six():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2006).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2007")
+def seven():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2007).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2008")
+def eight():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2008).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2009")
+def nine():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2009).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2010")
+def ten():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2010).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2011")
+def eleven():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2011).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
+    return jsonify(pitch_data)
+
+@app.route("/2012")
+def twelve():
+    sel = [
+        PitchforkData.reviewid,
+        PitchforkData.artist,
+        PitchforkData.genre,
+        PitchforkData.album_title,
+        PitchforkData.score,
+        PitchforkData.pub_year,
+        PitchforkData.year,
+        PitchforkData.url
+        ]
+
+    results1 = db.session.query(*sel).filter(PitchforkData.year == 2012).all()
+
+    pitch_data = []
+    for result in results1:
+        pitch_data.append({
+        "reviewid": result[0],
+        "artist": result[1],
+        "genre": result[2],
+        "album_title": result[3],
+        "score": result[4],
+        "pub_year": result[5],
+        "year": result[6],
+        "url": result[7]
+        })
+    
     return jsonify(pitch_data)
 
 @app.route("/rock")

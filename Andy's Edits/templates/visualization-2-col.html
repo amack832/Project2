@@ -133,10 +133,21 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
             </div>
         </div>
+        
         <!-- /.row -->
 
-        <hr>
+        <!-- <hr> -->
 
+        <!-- <div class="panel panel-primary"> -->
+                <!-- <div class="panel-heading"> -->
+                  <!-- <h3 class="panel-title">Album</h3> -->
+                <!-- </div> -->
+                <!-- <div id="Album" class="panel-body"></div> -->
+        <!-- </div> -->
+
+         <!-- /.row -->
+
+        <hr>
 
         <!-- Footer -->
         <footer>
@@ -159,10 +170,13 @@
     <!-- /.container -->
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- D3 Javascript Source -->
+    <script src="{{ url_for('static', filename='js/d3.min.js') }}"></script>
 
 </body>
 

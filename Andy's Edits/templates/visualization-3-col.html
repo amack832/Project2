@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Project 2 : Average Genre Score per Year</title>
+    <title>Project 2 : Breakdown of Genre Reviews per Year</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Bootstrap Core CSS -->
@@ -92,13 +92,13 @@
         <!-- Page Heading/Breadcrumbs -->
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">One Column Portfolio
-                    <small>Subheading</small>
+                <h1 class="page-header">Project 2
+                    <!--<small>Andy Humburg, Alexander Mackenzie, Byron Allen, Melanie Eppright</small>-->
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="index">Home</a>
                     </li>
-                    <li class="active">One Column Portfolio</li>
+                    <li class="active">Visualization 3: Yearly Genre Breakdown</li>
                 </ol>
             </div>
         </div>
@@ -112,9 +112,11 @@
                 <script src="{{ url_for('static', filename='js/pitchforkStacked.js') }}"></script>
             </div>
             <div class="col-md-5">
-                <h3>Project One</h3>
-                <h4>Subheading</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
+                <h3>Number of Albums Reviewed Per Year Broken Down by Genre</h3>
+                <h4></h4>
+                <p>For this visualization we wanted to see if there was any bias being shown by Pitchfork in terms of the shear volume of reviews. Publications tend to play to their readership. Pitchfork has made a name for itself covering independent music, but has expanded its purview in recent years.</p>
+
+                <p>As we can see Rock music has consistently dominated the site's reviewed content. This does remain consistent with the brand Pitchfork has cultivated as an indie darling. However, it does appear that the site has taken measures to combat criticisms that they focused too heavily on their niche. There is a clear positive trend to the amount of attention being paid to Pop/R&B, Electronic, and Rap music.</p>
             </div>
         </div>
         <!-- /.row -->
@@ -126,7 +128,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Your Website 2019</p>
 					<my-timer></my-timer>
 
 					<script src="/static/js/my-timer.tag" type="riot/tag"></script>

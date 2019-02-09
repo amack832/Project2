@@ -104,14 +104,15 @@ function buildPlot() {
         // Set layout for graph
         var layout = {
             barmode: 'stack',
-            title: "Number of Albums Reviewed by Genre Per Year",
             xaxis: {
                 title: "Years"
             },
             yaxis: {
                 title: "# of Reviews"
             },
-            legend: true
+            legend: true,
+            height: 350,
+            width: 690
         }
         
         // Compile traces into single list

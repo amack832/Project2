@@ -35,8 +35,6 @@ function buildPlot() {
     yaxis: {
       title: "Score"
     },
-    height: 500,
-    width: 700
   }
 
   var data = [trace1];

@@ -94,7 +94,7 @@ def pitchtotals():
     for result in results2:
         pitch_total_data.append({
             "id": result[0],
-            "genre count": result[1],
+            "genre_count": result[1],
             "genre": result[2],
             "avg score": result[3],
             "year": result[4]

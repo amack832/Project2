@@ -18,12 +18,13 @@ function buildPlot() {
 
     d3.json(defaultURL).then(function(data) {
         // Loop through years to make sure data is stored in proper order
-        for (var j=1999 ; j < 2013 ; j++){
+        for (var j=1999 ; j < 2013 ; j++) {
             // Loop though data
             for (var i=0 ; i < data.length ; i++) {
                 // Place data into proper genre's list
                 if (data[i].genre == "rock" && data[i].year == j) {
                     rockCounts.push(data[i].genre_count);
+                    console.log(rockCounts);
                 } else if (data[i].genre == "metal" && data[i].year == j) {
                     metalCounts.push(data[i].genre_count);
                 } else if (data[i].genre == "pop/r&b" && data[i].year == j) {
@@ -39,6 +40,7 @@ function buildPlot() {
                 } else if (data[i].genre == "global" && data[i].year == j) {
                     globalCounts.push(data[i].genre_count);
                 }
+
             }
         };
 
@@ -120,3 +122,4 @@ function buildPlot() {
     })
 }
 buildPlot();
+console.log(rockCounts);

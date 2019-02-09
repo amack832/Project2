@@ -113,7 +113,7 @@ function buildPlot() {
         }
         
         // Compile traces into single list
-        var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8]
+        var data = [trace1, trace2, trace3, trace4, trace5, trace6, trace7, trace8];
 
         // Plot that bad boy
         Plotly.plot('barStack', data, layout);
